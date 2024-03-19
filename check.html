@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation</title>
+</head>
+<body>
+    <h1>HTML Geolocation API</h1>
+
+</body>
+<script>
+    if (!navigator.geolocation) {
+        throw new Error("No Geolocation Available ")
+    }
+
+    function success()
+    {
+        
+    }
+    function error()
+    {
+
+    }
+    function options()
+    {
+
+    }
+navigator.geolocation.getCurrentPosition(success,error,options)
+</script>
+</html>

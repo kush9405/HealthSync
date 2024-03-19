@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Video Consultation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles if needed */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Online Video Consultation</h1>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <!-- Video consultation interface -->
+            <div id="videoContainer" class="embed-responsive embed-responsive-16by9">
+                <video id="localVideo" autoplay class="embed-responsive-item"></video>
+             <!-- Local video stream will be displayed here -->
+            </div>
+            </div>
+
+                <div id="videoContainer" class="embed-responsive embed-responsive-16by9">
+                    <!-- Video consultation interface -->
+<div id="videoContainer" class="embed-responsive embed-responsive-16by9">
+    <video id="remoteVideo" autoplay class="embed-responsive-item"></video>
+    <!-- Remote video stream will be displayed here -->
+</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-8 text-center">
+                <!-- Controls -->
+                <button id="startCallBtn" class="btn btn-primary mr-3">Start Call</button>
+                <button id="endCallBtn" class="btn btn-danger">End Call</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript and Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript code for video consultation functionality
+        
+    </script>
+    <script>
+        // Get access to the user's camera and microphone
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true
+        })
+        .then(function(stream) {
+            // Display the local video stream in the designated video element
+            var videoElement = document.getElementById('localVideo');
+            videoElement.srcObject = stream;
+        })
+        .catch(function(error) {
+            console.error('Error accessing user media:', error);
+        });
+        // JavaScript code for displaying remote video stream
+const remoteVideoElement = document.getElementById('remoteVideo');
+
+// Assume you have a variable named remoteStream that holds the remote video stream
+remoteVideoElement.srcObject = remoteStream;
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Nearby Hospitals</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    .hospital-card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nearby Hospitals</h1>
+  <div id="map"></div>
+  <div id="hospital-list" class="container mt-4 row"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <script>
+    // Initialize the map
+    const map = L.map('map');
+    let userLocation;
+
+    // Get user's location
+    navigator.geolocation.getCurrentPosition(position => {
+      userLocation = position.coords;
+      map.setView([userLocation.latitude, userLocation.longitude], 13); // Centered at user's location
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Fetch nearby hospitals
+      axios.get('https://overpass-api.de/api/interpreter', {
+        params: {
+          data: `[out:json][timeout:25];(node["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude});way["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude});relation["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude}););out body;>;out skel qt;`
+        }
+      }).then(response => {
+        const hospitals = response.data.elements;
+        const hospitalList = document.getElementById('hospital-list');
+        let row = document.createElement('div');
+        row.classList.add('row');
+        let count = 0;
+        hospitals.forEach(hospital => {
+          // Add marker to the map
+          L.marker([hospital.lat, hospital.lon]).addTo(map)
+            .bindPopup(hospital.tags.name || 'Hospital');
+
+          // Check if address is available
+          if (hospital.tags['addr:full']) {
+            // Create card for hospital
+            const hospitalCard = document.createElement('div');
+            hospitalCard.classList.add('card', 'col-md-4', 'hospital-card');
+            hospitalCard.innerHTML = `
+              <div class="card-body" style="background-color: #64b5f6;">
+                <h5 class="card-title">${hospital.tags.name || 'Hospital'}</h5>
+                <p class="card-text">${hospital.tags['addr:full']}</p>
+                <a href="#" class="btn btn-primary">Book Appointment</a>
+              </div>
+            `;
+            row.appendChild(hospitalCard);
+            count++;
+            if (count === 3) {
+              hospitalList.appendChild(row);
+              row = document.createElement('div');
+              row.classList.add('row');
+              count = 0;
+            }
+          }
+        });
+        // Append remaining hospitals if they don't complete a row
+        if (count > 0) {
+          hospitalList.appendChild(row);
+        }
+      }).catch(error => {
+        console.error('Error fetching nearby hospitals:', error);
+      });
+    }, error => {
+      console.error('Error getting user location:', error);
+    });
+  </script>
+</body>
+</html>

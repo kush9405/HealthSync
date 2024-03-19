@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>Book Appointment</h2>
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <label for="time">Time:</label>
+            <select class="form-control" id="time" name="time" required>
+              <option value="">Select Time Slot</option>
+              <option value="09:00">09:00 AM</option>
+              <option value="09:00">09:30 AM</option>
+              <option value="09:00">10:00 AM</option>
+              <option value="09:00">10:30 AM</option>
+              <option value="09:00">11:00 AM</option>
+              <option value="09:00">11:30 AM</option>
+              <option value="09:00">12:00 PM</option>
+            
+              <option value="09:00">02:00 PM</option>
+              <option value="09:00">02:30 PM</option>
+              <option value="09:00">03:00 PM</option>
+              <option value="09:00">03:30 PM</option>
+              <option value="09:00">04:00 PM</option>
+              <option value="09:00">04:30 PM</option>
+              <option value="09:00">05:00 PM</option>
+              <option value="09:00">06:00 PM</option>
+              <option value="09:00">06:30 PM</option>
+              <option value="09:00">07:00 PM</option>
+              <option value="09:00">07:30 PM</option>
+              <option value="09:00">08:00 PM</option>
+
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-8 offset-md-2">
+        <div id="calendar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Initialize FullCalendar
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridWeek,timeGridDay'
+        },
+        events: [
+          // Here you can fetch the booked appointments from the server and populate the calendar
+          // Example event:
+          // { title: 'Booked', start: '2024-03-16T10:00:00', end: '2024-03-16T11:00:00' }
+        ]
+      });
+      calendar.render();
+
+      // Populate time slots dropdown
+      var timeDropdown = $('#time');
+      var availableTimes = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00']; // Example available time slots
+      $.each(availableTimes, function(index, time) {
+        timeDropdown.append('<option value="' + time + '">' + time + '</option>');
+      });
+
+      // Handle form submission
+      $('#appointmentForm').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+        // Here you can send the form data to the server to handle booking logic and update the calendar events
+        // Example AJAX request:
+        /*
+        $.ajax({
+          type: 'POST',
+          url: 'book-appointment.php',
+          data: formData,
+          success: function(response) {
+            // Handle success response
+            console.log(response);
+          },
+          error: function(xhr, status, error) {
+            // Handle error
+            console.error(xhr.responseText);
+          }
+        });
+        */
+      });
+    });
+  </script>
+</body>
+</html>

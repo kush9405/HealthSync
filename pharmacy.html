@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Medicines and Essentials </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #64b5f6;
+            color: #fff;
+            padding: 20px 20px;
+            text-align: center;
+        }
+        nav {
+            display: inline-block;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        .medicine-container {
+            padding:3rem 2rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .medicine-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+        .medicine-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .medicine-box img {
+            max-width: 100%;
+            height: auto;
+        }
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 16px;
+            margin-top: 10px;
+            background-color: #4d6b83;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #4d6b83;
+        }
+        footer {
+            background-color: #64b5f6;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="welcome.php">Home</a>
+            <a href="contactus.html">Contact Us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Buy Medicines and Essentials!</h1>
+        <div class="medicine-container">
+            <div class="medicine-box">
+                <img src="download (2).jpeg" alt="Medicine 1">
+                <p>Diphenhydramine <br> Antihistamine used for allergies, itching, and as a sleep aid.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Omeprazole.jpeg" alt="Medicine 2">
+                <p>Omeprazole <br> Proton pump inhibitor (PPI) used to reduce stomach acid and treat conditions like heartburn and GERD.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Lansoprazole.jpeg" alt="Medicine 3">
+                <p>Lansoprazole <br> Another proton pump inhibitor used to treat stomach and esophagus problems such as acid reflux.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="download.jpeg" alt="Medicine 1">
+                <p>Aspirin <br>Pain reliever and fever reducer.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="download (1).jpeg" alt="Medicine 2">
+                <p>Paracetamol (Acetaminophen) <br> Commonly used for pain relief and reducing fever.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Ibuprofen.jpeg" alt="Medicine 3">
+                <p>Ibuprofen <br> Nonsteroidal anti-inflammatory drug (NSAID) used for pain relief and reducing inflammation.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Loratadine.jpeg" alt="Medicine 1">
+                <p>Loratadine <br> Antihistamine used to relieve symptoms of allergies.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Simvastatin.jpeg" alt="Medicine 2">
+                <p>Simvastatin <br> Statin medication used to lower cholesterol levels.</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+            <div class="medicine-box">
+                <img src="Metformin.jpeg" alt="Medicine 3">
+                <p>Metformin <br> Oral diabetes medication used to control blood sugar levels in people with type 2 diabetes.<br></p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            addToCartButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    alert('Item has been added to the cart.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Nearby Hospitals</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    .hospital-card {
+      margin-bottom: 20px;
+    }
+    .navbar-nav {
+      padding-left: 0; /* Remove default left padding */
+    }
+    .nav-item {
+      padding-left: 0; /* Remove default left padding */
+    }
+    /* Custom CSS to increase padding size */
+    .nav-link {
+      padding: 15px 20px; /* Adjust padding size as needed */
+    }
+    .navbar-custom {
+      background-color: #64b5f6 !important; /* Change the background color to #64b5f6 */
+    }
+    .logo img {
+      max-width: 70px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nearby Hospitals</h1>
+  <div id="map"></div>
+  <div id="hospital-list" class="container mt-4 row"></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">
+      <div class="logo">
+        <img src="logo.jpg" alt="Healthcare Logo">
+        HealthSync
+      </div>
+    </a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <nav class="navbar navbar-dark navbar-custom">
+          <ul class="navbar-nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+            <div class="container">
+                <!-- <h1>Profile</h1> -->
+                <div id="profile-section">
+                  <!-- Profile details will be displayed here if user is logged in -->
+                  <!-- You'll need to implement this part dynamically using server-side code -->
+                </div>
+                <div id="profile-actions">
+                  <div class="btn-group">
+                    <button type="button" id="create-profile-link" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Create New Profile
+                    </button>
+                    
+                  </div>
+          
+                  <div class="btn-group">
+                    <button type="button" id="add-member-link" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Add New Member
+                    </button>
+                   
+                  </div>
+                </div>
+              </div>
+              
+            <li class="nav-item"><a class="nav-link" href="appointment.html">Book an Appointment</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Online Consultation</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Doctor
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Doctor 1</a>
+                <a class="dropdown-item" href="#">Doctor 2</a>
+                <a class="dropdown-item" href="#">Doctor 3</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Hospitals</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Upload Prescription</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Ambulance Service</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">My Appointments</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+  <script>
+    // Initialize the map
+    const map = L.map('map');
+    let userLocation;
+
+    // Get user's location
+    navigator.geolocation.getCurrentPosition(position => {
+      userLocation = position.coords;
+      map.setView([userLocation.latitude, userLocation.longitude], 13); // Centered at user's location
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Fetch nearby hospitals
+      axios.get('https://overpass-api.de/api/interpreter', {
+        params: {
+          data: `[out:json][timeout:25];(node["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude});way["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude});relation["amenity"="hospital"](around:10000,${userLocation.latitude},${userLocation.longitude}););out body;>;out skel qt;`
+        }
+      }).then(response => {
+        const hospitals = response.data.elements;
+        const hospitalList = document.getElementById('hospital-list');
+        let row = document.createElement('div');
+        row.classList.add('row');
+        let count = 0;
+        hospitals.forEach(hospital => {
+          // Add marker to the map
+          L.marker([hospital.lat, hospital.lon]).addTo(map)
+            .bindPopup(hospital.tags.name || 'Hospital');
+
+          // Check if address is available
+          if (hospital.tags['addr:full']) {
+            // Create card for hospital
+            const hospitalCard = document.createElement('div');
+            hospitalCard.classList.add('card', 'col-md-4', 'hospital-card');
+            hospitalCard.innerHTML = `
+              <div class="card-body" style="background-color: #64b5f6;">
+                <h5 class="card-title">${hospital.tags.name || 'Hospital'}</h5>
+                <p class="card-text">${hospital.tags['addr:full']}</p>
+                <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
+              </div>
+            `;
+            row.appendChild(hospitalCard);
+            count++;
+            if (count === 3) {
+              hospitalList.appendChild(row);
+              row = document.createElement('div');
+              row.classList.add('row');
+              count = 0;
+            }
+          }
+        });
+        // Append remaining hospitals if they don't complete a row
+        if (count > 0) {
+          hospitalList.appendChild(row);
+        }
+      }).catch(error => {
+        console.error('Error fetching nearby hospitals:', error);
+      });
+    }, error => {
+      console.error('Error getting user location:', error);
+    });
+  </script>
+</body>
+</html>

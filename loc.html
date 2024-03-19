@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+</head>
+<body>
+    <h1>Finally!!!!</h1>
+    <button onclick="cmb()">button</button>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        function cmb()
+        {
+            if (navigator.geolocation) {
+                // alert("Your Browser Support geolocation Api");
+                navigator.geolocation.getCurrentPosition(mycoords);
+            }
+            else
+            {
+                alert("Your browser does not support geolocation")
+            }
+        }
+        function mycoords(position){
+            var lat=position.coords.latitude;
+            var long=position.coords.longitude;
+            // alert("Latitude:"+lat+" Longitude"+long);
+            var myapi="https://api.opencagedata.com/geocode/v1/json?q="+lat+","+long+"&key=6f0bbabee40a4db5bae9532476a4739d"
+            console.log(myapi);
+            $.get(myapi,function(data){
+                console.log(data);
+                $("h1").text(data.results[0].components.university);
+            })
+        }
+    </script>
+</body>
+</html>

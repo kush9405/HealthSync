@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #64b5f6;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .left-img, .right-img {
+            flex: 1;
+            padding: 3rem;
+            max-width: 40%;
+            box-shadow:#333;
+            border-radius: 5px;
+        }
+        form {
+            flex: 1;
+            max-width: 50%;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #64b5f6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Health Tracker</h1>
+    </header>
+    <main>
+        <script type="text/javascript">
+            (function (d, s, id) {
+              var js, el = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s);
+              js.async = true;
+              js.src = 'https://s3.ap-south-1.amazonaws.com/conferbot.defaults/dist/v1/widget.min.js';
+              js.id = id;
+              js.charset = 'UTF-8';
+              el.parentNode.insertBefore(js, el);
+              js.onload = function () {
+                var w = window.ConferbotWidget("65f47e31001c90111dfa1406", "live_chat");
+              };
+            })(document, 'script', 'conferbot-js');
+          </script>
+    
+        <div class="left-img">
+            <img src="bp.jpeg" alt="Left Image">
+        </div>
+        <form action="#" method="post">
+            <label for="bp">Blood Pressure:</label>
+            <input type="text" id="bp" name="bp" placeholder="Enter BP">
+            <label for="sugar">Sugar Level:</label>
+            <input type="number" id="sugar" name="sugar" placeholder="Enter Sugar Level">
+            <label for="diabetes">Diabetes Status:</label>
+            <input type="text" id="diabetes" name="diabetes" placeholder="Enter Diabetes Status">
+            <input type="submit" value="Submit">
+        </form>
+        <div class="right-img">
+            <img src="dia.jpeg" alt="Right Image">
+        </div>
+    </main>
+    <footer>
+        <p>Ideal Levels: BP &lt; 120/80 mmHg, Sugar &lt; 100 mg/dL, No Diabetes</p>
+
+    </footer>
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>

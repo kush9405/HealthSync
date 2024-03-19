@@ -1,0 +1,32 @@
+Patient Name: [Patient's Name]
+Date: [Date]
+Prescription ID: [Prescription ID]
+
+Diagnosis: Acute Gastritis
+
+Medications:
+
+Antacid:
+
+Medicine: Omeprazole 20mg
+Dosage: Take 1 tablet orally, once daily before breakfast for 7 days.
+Antispasmodic:
+
+Medicine: Dicyclomine 10mg
+Dosage: Take 1 tablet orally, three times a day after meals as needed for stomach cramps.
+Analgesic:
+
+Medicine: Paracetamol 500mg
+Dosage: Take 1 tablet orally, as needed for pain relief. Do not exceed 4 tablets in 24 hours.
+Antiemetic:
+
+Medicine: Ondansetron 4mg
+Dosage: Take 1 tablet orally, as needed for nausea and vomiting.
+Instructions:
+
+Avoid spicy, oily, and heavy meals.
+Drink plenty of water.
+Follow a bland diet.
+If symptoms persist or worsen, contact your healthcare provider.
+Keep this prescription for your records.
+Doctor's Name: [Doctor's Name]

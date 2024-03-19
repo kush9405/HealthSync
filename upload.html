@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Prescription</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for color theme -->
+    <style>
+        body {
+            background-color: #a9d0f0; /* Set background color */
+        }
+        .container {
+            margin-top: 50px; /* Add margin to the top for better spacing */
+        }
+        h1 {
+            color: #ffffff; /* Set heading text color */
+        }
+        .form-group {
+            margin-bottom: 20px; /* Add margin to form elements */
+        }
+        /* Customize button styles */
+        .btn-primary {
+            background-color: #1b75dc; /* Set button background color */
+            border-color: #1673dc; /* Set button border color */
+        }
+        .btn-primary:hover {
+            background-color: #1976d2; /* Set button hover background color */
+            border-color: #1976d2; /* Set button hover border color */
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <div class="logo-container">
+                    <img class="logo-img" src="file_logo.png" alt="Logo">
+                </div>
+                <h1>Upload Prescription</h1>
+                <form action="success.html" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" name="file" accept=".txt, .png, .jpg, .jpeg">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
